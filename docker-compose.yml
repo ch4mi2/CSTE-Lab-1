@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  web:
+    image: node:14
+    container_name: node-web-app
+    working_dir: /app
+    volumes:
+      - ./app:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    command: "npm start"
+  
+  db:
+    image: mongo:latest
+    container_name: mongo-db
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+    
+volumes:
+  mongodb_data:
+
+networks:
+  default:
+    driver: bridge

@@ -1,0 +1,16 @@
+# Naive Dockerfile
+
+# Use the official Python image from the Docker Hub
+FROM python:3.9-slim
+
+# Copy all files into the /app directory in the container
+COPY . /app
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Install dependencies using pip
+RUN pip install -r requirements.txt
+
+# Run the Flask app
+CMD ["python", "app.py"]

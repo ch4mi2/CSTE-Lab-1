@@ -1,0 +1,19 @@
+# Optimized Dockerfile
+
+# Use the official Python image from the Docker Hub
+FROM python:3.9-slim
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy only the requirements.txt first (cache-friendly)
+COPY requirements.txt requirements.txt
+
+# Install Python dependencies (this layer will be cached unless requirements.txt changes)
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Now copy the rest of the code (this will only invalidate the copy step, not the pip install)
+COPY . /app
+
+# Run the Flask app
+CMD ["python", "app.py"]
